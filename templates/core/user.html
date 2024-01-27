@@ -4,32 +4,42 @@
 {% block content %}
 <style>
     .profile-container {
-
+        margin-top: 6rem;
         max-width: 800px;
-        margin: 6rem auto;
+        margin: 50px auto;
         background-color: #fff;
         padding: 20px;
+        border-radius: 5px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-    .user-details {
+    h2 {
         text-align: center;
-        justify-content: space-around;
-        display: flex;
-        flex-wrap: wrap;
+        color: #333;
     }
 
-    .user-details .details {
-        margin-top: 4rem;
-        text-align: left;
-        font-size: 1.25rem;
-
-    }
-
-
-
-    .order-history {
+    .user-details {
+        align-items: center;
         margin-top: 20px;
+    }
+
+    .img img {
+        max-width: 100px;
+        max-height: 100px;
+        border-radius: 50%;
+        margin-right: 20px;
+    }
+
+    .details {
+        flex-grow: 1;
+    }
+
+    p {
+        margin: 10px 0;
+    }
+
+    span {
+        font-weight: bold;
     }
 
     ul {
@@ -37,20 +47,25 @@
         padding: 0;
     }
 
-    li {
-        border-bottom: 1px solid #ddd;
-        padding: 10px;
+    ul li {
+        margin: 10px 0;
     }
 
-    li:last-child {
-        border-bottom: none;
+    ul ul li {
+        margin: 5px 0;
+        font-style: italic;
+        color: #555;
     }
 
-    .user-details img {
-        margin: 1rem;
-        width: 10rem;
-        height: 10rem;
-        margin-top: 3rem;
+    /* Style for the logout link */
+    a {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    a:hover {
+        color: #0056b3;
     }
 </style>
 
@@ -60,7 +75,7 @@
 
         {% if user.is_authenticated %}
 
-
+        <a href="{% url 'logout' %}">Logout</a>
         {% if user.customer.userImage %}
         <div class="img">
             <img src="{{ user.customer.userImage.url }}" alt="{{ user.customer.name }}'s profile image">

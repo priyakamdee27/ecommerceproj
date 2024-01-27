@@ -18,11 +18,13 @@
         <div class="content-container">
             <div class="image-container">
                 <img src="{{product.imageURL }}">
+                {% if user.is_authenticated %}
                 <form method="post" action="{% url 'add_to_wishlist' product.id %}">
                     {% csrf_token %}
                     <button type="submit">
                         <i class="fa-regular fa-heart wishlist"></i>
                     </button>
+
                     {% for ids in wishlist_product_ids %}
                     {% if ids == product.id %}
                     <button type="submit">
@@ -31,6 +33,7 @@
                     {% endif %}
                     {% endfor %}
                 </form>
+                {% endif %}
                 <div class="rating">
                     <p>4.0 <i class="fa-solid fa-star"></i>
                     </p>

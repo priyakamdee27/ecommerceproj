@@ -1,0 +1,86 @@
+{% extends 'core/main.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    header {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 20px 0;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .main-content {
+        background-color: #fff;
+        margin: 20px 0;
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+    footer {
+        text-align: center;
+        padding: 10px 0;
+        background-color: #333;
+        color: #fff;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 3rem;
+        text-align: center;
+    }
+
+    .img {
+        width: 90vw;
+        height: 50vh;
+        object-fit: contain;
+        position: relative;
+    }
+
+    img {
+        width: 100vw;
+        height: 50vh;
+        opacity: 0.6;
+    }
+
+    .img p {
+        position: absolute;
+        text-align: center;
+        top: 40%;
+        left: 50%;
+        font-size: 4rem;
+    }
+</style>
+
+<div class="img">
+    <img src="{% static '/images/bg.jpg' %}">
+    <p>About Us</p>
+</div>
+
+<section class="main-content">
+    <div class="container">
+        <p>Welcome to our website! We are a team of passionate individuals dedicated to providing quality products
+            and excellent service. Our mission is to...</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat...</p>
+
+        <p>Our team is committed to innovation and customer satisfaction. We strive to create a positive shopping
+            experience for our customers...</p>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2024 Shiya. All rights reserved.</p>
+</footer>
+
+{% endblock %}

@@ -5,6 +5,48 @@ import json
 import datetime
 from .utils import cookieCart, cartData
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout
+from .forms import UserRegistrationForm, CustomerForm
+
+
+def register(request):
+    if request.method == "POST":
+        user_form = UserRegistrationForm(request.POST)
+        customer_form = CustomerForm(request.POST, request.FILES)
+        if user_form.is_valid() and customer_form.is_valid():
+            user = user_form.save()
+            customer = customer_form.save(commit=False)
+            customer.user = user
+            customer.save()
+            login(request, user)
+            return redirect("store")  # replace 'home' with the name of your home view
+    else:
+        user_form = UserRegistrationForm()
+        customer_form = CustomerForm()
+    return render(
+        request,
+        "core/register.html",
+        {"user_form": user_form, "customer_form": customer_form},
+    )
+
+
+def user_login(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect("index")  # replace 'home' with the name of your home view
+    else:
+        form = AuthenticationForm()
+    return render(request, "core/login.html", {"form": form})
+
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return redirect("index")
 
 
 def user(request):
@@ -45,17 +87,29 @@ def store(request):
     cartItems = data["cartItems"]
 
     products = Product.objects.all()
-    wishlist = Wishlist.objects.get(user=request.user)
+    user_id = None
 
-    wishlist_product_ids = wishlist.products.values_list("id", flat=True)
-
-    context = {
-        "products": products,
-        "cartItems": cartItems,
-        "wishlist": wishlist,
-        "wishlist_product_ids": wishlist_product_ids,
-    }
-    return render(request, "core/store.html", context)
+    if request.user.is_authenticated:
+        try:
+            wishlist = Wishlist.objects.get(user=request.user.id)
+            wishlist_product_ids = wishlist.products.values_list("id", flat=True)
+            context = {
+                "products": products,
+                "cartItems": cartItems,
+                "wishlist": wishlist,
+                "wishlist_product_ids": wishlist_product_ids,
+            }
+            return render(request, "core/store.html", context)
+        except Wishlist.DoesNotExist:
+            wishlist = None
+            context = {
+                "products": products,
+                "cartItems": cartItems,
+            }
+            return render(request, "core/store.html", context)
+    else:
+        context = {"products": products, "cartItems": cartItems}
+        return render(request, "core/store.html", context)
 
 
 def category_product_list(request, category_id):
@@ -222,3 +276,7 @@ def search_products(request):
         )
     else:
         return render(request, "core/search.html", {"cartItems": cartItems})
+
+
+def about_us(request):
+    return render(request, "core/aboutUs.html")
