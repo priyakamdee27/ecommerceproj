@@ -1,0 +1,52 @@
+{% extends 'core/main.html' %}
+{% load static %}
+{% block content %}
+<section class="main-section">
+    <div id="carousel-container">
+        <div id="carousel">
+            <div class="carousel-item">
+                <img src="{% static '/images/bracelets1.jpg' %}" alt="Image 1">
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="product-section">
+    <div class="container">
+        {% for product in products %}
+
+        <div class="content-container">
+            <div class="image-container">
+                <img src="{{product.imageURL }}">
+                <form method="post" action="{% url 'add_to_wishlist' product.id %}">
+                    {% csrf_token %}
+                    <button type="submit">
+                        <i class="fa-regular fa-heart wishlist"></i>
+                    </button>
+                    {% for ids in wishlist_product_ids %}
+                    {% if ids == product.id %}
+                    <button type="submit">
+                        <i class="fa-solid fa-heart wishlist"></i>
+                    </button>
+                    {% endif %}
+                    {% endfor %}
+                </form>
+                <div class="rating">
+                    <p>4.0 <i class="fa-solid fa-star"></i>
+                    </p>
+                </div>
+            </div>
+            <div class="price">
+
+                <p>{{product.category.name}}: {{product.category.id}}</p>
+                <p>₹{{product.price|floatformat:2}}</p>
+                <p class="product-name">
+                    <a href="{% url 'product_detail' product_id=product.id %}">{{product.name|truncatechars:20}} </a>
+                </p>
+                <button data-product={{product.id}} data-action="add" class="update-cart">Add To Cart</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

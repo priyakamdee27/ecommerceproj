@@ -1,0 +1,52 @@
+{% extends 'core/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="product-section" style="margin-top: 6rem;">
+    <p style="margin: 2rem;">Search results for '{{ searched }}':</p>
+    <div class="container"">
+        {% if searched %}
+        {% for product in venues %}
+        <div class=" content-container">
+        <div class="image-container">
+            <img src="{{product.imageURL }}">
+            <form method="post" action="{% url 'add_to_wishlist' product.id %}">
+                {% csrf_token %}
+                <button type="submit">
+                    <i class="fa-regular fa-heart wishlist"></i>
+                </button>
+                {% for ids in wishlist_product_ids %}
+                {% if ids == product.id %}
+                <button type="submit">
+                    <i class="fa-solid fa-heart wishlist"></i>
+                </button>
+                {% endif %}
+                {% endfor %}
+            </form>
+            <div class="rating">
+                <p>4.0 <i class="fa-solid fa-star"></i>
+                </p>
+            </div>
+        </div>
+        <div class="price">
+            {% for ids in wishlist_product_ids %}
+            {% if ids == product.id %}
+            {{ids}}:{{product.id}}
+            {% endif %}
+            {% endfor %}
+            <p>{{product.category.name}}: {{product.category.id}}</p>
+            <p>₹{{product.price|floatformat:2}}</p>
+            <p class="product-name">
+                <a href="{% url 'product_detail' product_id=product.id %}">{{product.name|truncatechars:20}}
+                </a>
+            </p>
+            <button data-product={{product.id}} data-action="add" class="update-cart">Add To Cart</button>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>No search results yet. Try searching for products.</p>
+{% endif %}
+</div>
+{% endblock %}

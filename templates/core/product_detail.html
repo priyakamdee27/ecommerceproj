@@ -1,0 +1,90 @@
+{% extends 'core/main.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .container {
+        margin: 2rem;
+        margin-top: 6rem;
+        text-align: left;
+    }
+
+    .content-container {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: left;
+
+    }
+
+    .content-container button {
+        padding: 1rem;
+        border: none;
+        border-radius: 5px;
+        background-color: #dc1a71;
+        color: white;
+        cursor: pointer;
+        margin-top: 1rem;
+
+    }
+
+    .price {
+        margin-left: 4rem;
+        text-align: left;
+    }
+
+    p {
+        font-size: 1.5rem;
+        color: rgba(0, 0, 0, 0.717);
+        padding: 0.4rem;
+    }
+
+    h4 {
+        color: rgba(0, 0, 0, 0.731);
+        font-size: 1.5rem;
+        padding: 0.4rem;
+        margin-top: 1rem;
+    }
+
+    img {
+        margin-left: 1rem;
+        width: 30rem;
+        height: 30rem;
+    }
+
+    .btn {
+        margin: 1rem;
+        padding: 1rem;
+        border: none;
+        border-radius: 5px;
+        background-color: #dc1a71;
+        color: white;
+        cursor: pointer;
+        margin-top: 1rem;
+        text-decoration: none;
+
+    }
+</style>
+
+<div class="container">
+    <a class="btn" href="{% url 'store' %}">&#x2190; Continue Shoping</a>
+    <br>
+    <br>
+    <div class="content-container">
+        <div class="image-container">
+            <img src="{{product.imageURL }}">
+
+        </div>
+
+        <div class="price">
+            <h2>₹{{product.price|floatformat:2}}</h2>
+            <p>{{product.name}}</p>
+            <p>Made with <span>{{product.material}}</span></p>
+
+            <button data-product={{product.id}} data-action="add" class="update-cart">Add To Cart</button>
+            <button data-product={{product.id}} data-action="add" class="update-cart">Add to wishlist</button>
+            <h4>Description</h4>
+            <p>{{product.description}}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

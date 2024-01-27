@@ -1,0 +1,111 @@
+{% extends 'core/main.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .profile-container {
+
+        max-width: 800px;
+        margin: 6rem auto;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .user-details {
+        text-align: center;
+        justify-content: space-around;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .user-details .details {
+        margin-top: 4rem;
+        text-align: left;
+        font-size: 1.25rem;
+
+    }
+
+
+
+    .order-history {
+        margin-top: 20px;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+    }
+
+    li:last-child {
+        border-bottom: none;
+    }
+
+    .user-details img {
+        margin: 1rem;
+        width: 10rem;
+        height: 10rem;
+        margin-top: 3rem;
+    }
+</style>
+
+<div class="profile-container">
+    <h2>User Profile</h2>
+    <div class="user-details">
+
+        {% if user.is_authenticated %}
+
+
+        {% if user.customer.userImage %}
+        <div class="img">
+            <img src="{{ user.customer.userImage.url }}" alt="{{ user.customer.name }}'s profile image">
+        </div>
+        {% endif %}
+        <div class="details">
+            <p>Username:<span> {{username}}</span></p>
+            <p>Name: <span id="name">{{user.customer.name}}</span></p>
+            <p>Email: <span id="email">{{user.customer.email}}</span></p>
+
+            {% if shipping_address %}
+            <h3>Shipping Address</h3>
+            <p>Address: {{ shipping_address.address }}</p>
+            <p>City: {{ shipping_address.city }}</p>
+            <p>State: {{ shipping_address.state }}</p>
+            <p>Zipcode: {{ shipping_address.zipcode }}</p>
+        </div>
+        {% else %}
+        <p>No shipping address found for this user.</p>
+        {% endif %}
+    </div>
+    {% else %}
+    <p>User is not logged in.</p>
+    {% endif %}
+
+    {% if order_items %}
+    <h3>Order History</h3>
+    <ul>
+        {% for order, order_item_objects in order_items %}
+        <li>Order ID: {{ order.id }} - Date: {{ order.date_orderd }} - Complete: {{ order.complete }}</li>
+        <ul>
+            {% for order_item in order_item_objects %}
+            <li>Product: {{ order_item.product.name }} - Quantity: {{ order_item.quantity }} - Date Added:
+                {{order_item.date_added }}</li>
+            {% endfor %}
+        </ul>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No orders found for this user.</p>
+    {% endif %}
+</div>
+
+
+
+
+
+{% endblock %}

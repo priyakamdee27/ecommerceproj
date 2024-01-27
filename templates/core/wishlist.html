@@ -1,0 +1,86 @@
+{% extends 'core/main.html' %}
+{% load static %}
+
+
+{% block content %}
+<style>
+    .wishlist {
+        background-color: #f2f2f2;
+        margin: 1rem 4rem;
+        padding: 2rem;
+        margin-top: 6rem;
+    }
+
+    .wishlist .row {
+        display: flex;
+    }
+
+    .wishlist img {
+        width: 4rem;
+        margin: 0.5rem;
+    }
+
+    .wishlist .btn {
+        padding: 0.5rem;
+        text-decoration: none;
+        color: rgba(255, 72, 145, 0.664);
+        font-size: 1rem;
+        border: 2px solid;
+    }
+
+    .wishlist .btn:hover {
+        background-color: rgba(255, 72, 145, 0.664);
+        color: white;
+    }
+
+    .wishlist .update-cart {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: #ff2a63;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        border-color: transparent;
+        cursor: pointer;
+    }
+</style>
+<h2>Wishlist</h2>
+
+<div class="wishlist">
+    <a class="btn" href="{% url 'store' %}">&#x2190; Continue Shoping</a>
+    <br>
+    <br>
+    <div class="col">
+        <div class="cart-row">
+            <div style="flex:1"></div>
+            <div style="flex:2"><strong>Item</strong></div>
+            <div style="flex:1"><strong>Price</strong></div>
+            <div style="flex:1"><strong>Action</strong></div>
+            <div style="flex:1"><strong>Remove</strong></div>
+        </div>
+        {% if products %}
+        <ul>
+            {% for product in products %}
+            <div class="row">
+
+                <div style="flex:1"><img class="row-img" src="{{product.imageURL}}"></div>
+                <div style="flex:2">{{ product.name }} </div>
+                <div style="flex:1">&#8377;{{ product.price }}</div>
+                <div style="flex:1">
+                    <a href="{% url 'remove_from_wishlist' product.id %}"><button data-product={{product.id}}
+                            data-action="add" class="update-cart">Add to cart</button>
+                    </a>
+                </div>
+                <div style="flex:1">
+                    <a href="{% url 'remove_from_wishlist' product.id %}"><i class="fa-solid fa-trash"></i></a>
+                </div>
+            </div>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>Your wishlist is empty.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
