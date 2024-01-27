@@ -8,7 +8,7 @@ class Category(models.Model):
     name = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.name
+        return f"{self.name} {self.id}"
 
 
 class Customer(models.Model):
@@ -37,6 +37,7 @@ class Product(models.Model):
     )
     material = models.CharField(max_length=100, null=True, blank=True)
     description = models.TextField(max_length=200, null=True, blank=True)
+    occasion = models.CharField(max_length=100, null=True, blank=True)
     # image
 
     def __str__(self):

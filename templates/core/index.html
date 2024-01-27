@@ -21,7 +21,7 @@
 <section class="category">
     <div class="carousel-container">
         <div class="carousel-wrapper" id="carouselWrapper">
-            <a href="{% url 'category_products' category_id=4 %}">
+            <a href="{% url 'category_products' category_id=3 %}">
                 <div class="carousel-slide"><img src="{% static '/images/pendant.jpg' %}">
                     <p>Pendants</p>
                 </div>
@@ -42,32 +42,32 @@
                     <p>Rings</p>
                 </div>
             </a>
-            <a href="{% url 'category_products' category_id=4 %}">
+            <a href="{% url 'category_products' category_id=7 %}">
                 <div class="carousel-slide"><img src="{% static '/images/pendant_set.webp' %}">
                     <p>Pendant Sets</p>
                 </div>
             </a>
-            <a href="{% url 'category_products' category_id=4 %}">
+            <a href="{% url 'category_products' category_id=8 %}">
                 <div class="carousel-slide"><img src="{% static '/images/ankeletes.webp' %}">
                     <p>ankeletes</p>
                 </div>
             </a>
-            <a href="{% url 'category_products' category_id=4 %}">
+            <a href="{% url 'category_products' category_id=11 %}">
                 <div class="carousel-slide"><img src="{% static '/images/oxidised.webp' %}">
                     <p>Oxidised Jwellery</p>
                 </div>
             </a>
-            <a href="{% url 'category_products' category_id=4 %}">
+            <a href="{% url 'category_products' category_id=12 %}">
                 <div class="carousel-slide"><img src="{% static '/images/bridal.webp' %}">
                     <p>Bridal Sets</p>
                 </div>
             </a>
-            <a href="{% url 'category_products' category_id=4 %}">
+            <a href="{% url 'category_products' category_id=9 %}">
                 <div class="carousel-slide"><img src="{% static '/images/nosepin.webp' %}">
                     <p>Nose Pins</p>
                 </div>
             </a>
-            <a href="{% url 'category_products' category_id=4 %}">
+            <a href="{% url 'category_products' category_id=10 %}">
                 <div class="carousel-slide"><img src="{% static '/images/mens-bracelets.webp' %}">
                     <p>Men's</p>
                 </div>
@@ -111,11 +111,15 @@
         <div class="content-container">
             <div class="row">
                 <img src="{% static '/images/pcustomised.jpg' %}" alt="">
-                <p>Customised Pendants</p>
+                <a href="{% url 'category_products' category_id=13 %}">
+                    <p style="color: black;">Customised Pendants</p>
+                </a>
             </div>
-            <div class="row">
+            <div class=" row">
                 <img src="{% static '/images/cpbracelete.jpg' %}" alt="">
-                <p>Customised Pearl Bracelets</p>
+                <a href="{% url 'category_products' category_id=14 %}">
+                    <p style="color: black;">Customised Pearl Bracelets</p>
+                </a>
             </div>
         </div>
     </div>
@@ -125,7 +129,7 @@
     <div class="container">
         <img src="{% static '/images/middle-bg.jpg' %}">
         <p>Preserved Flower Jewellery</p>
-        <button>Shop Now</button>
+        <a href="{% url 'category_products' category_id=14 %}"> <button>Shop Now</button></a>
 
     </div>
 </section>
